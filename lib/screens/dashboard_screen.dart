@@ -17,20 +17,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Dashboard")),
+      appBar: AppBar(title: const Text("Dashboard")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Hello, ${widget.firstName} ${widget.lastName}",
-                style: TextStyle(fontSize: 24)),
-            SizedBox(height: 10),
+                style: const TextStyle(fontSize: 24)),
+            const SizedBox(height: 10),
             Text(widget.email),
-
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             ElevatedButton(
-              child: Text("Profile"),
+              child: const Text("Profile"),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -46,15 +45,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
 
             ElevatedButton(
-              child: Text("KRS"),
+              child: const Text("KRS"),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => KrsScreen(
-                      widget.firstName,
-                      widget.lastName,
-                    ),
+                    builder: (_) =>
+                        KRSScreen(widget.firstName, widget.lastName),
                   ),
                 );
               },

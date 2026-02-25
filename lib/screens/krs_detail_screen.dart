@@ -10,12 +10,12 @@ class KrsDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("KRS")),
+      appBar: AppBar(title: const Text("KRS Summary")),
       body: Center(
         child: Text(
           "Hello $firstName $lastName\nTotal Credits: $credits",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 22),
+          style: const TextStyle(fontSize: 22),
         ),
       ),
     );

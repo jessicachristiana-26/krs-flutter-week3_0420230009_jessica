@@ -25,46 +25,39 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              SizedBox(height: 60),
-
-              Center(
-                child: Text(
-                  "LOGIN",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-              ),
-
-              SizedBox(height: 40),
+              const SizedBox(height: 60),
+              const Text("LOGIN",
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 40),
 
               TextFormField(
                 controller: emailController,
-                decoration: InputDecoration(labelText: "Email"),
-                validator: (value) {
-                  if (value!.isEmpty) return "Email required";
-                  if (!isValidEmail(value)) return "Invalid email";
+                decoration: const InputDecoration(labelText: "Email"),
+                validator: (v) {
+                  if (v!.isEmpty) return "Email required";
+                  if (!isValidEmail(v)) return "Invalid email";
                   return null;
                 },
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
-                decoration: InputDecoration(labelText: "Password"),
-                validator: (value) =>
-                    value!.isEmpty ? "Password required" : null,
+                decoration: const InputDecoration(labelText: "Password"),
+                validator: (v) => v!.isEmpty ? "Password required" : null,
               ),
 
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               ElevatedButton(
-                child: Text("Login"),
+                child: const Text("Login"),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     Navigator.push(
@@ -81,10 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
 
-              SizedBox(height: 10),
-
               ElevatedButton(
-                child: Text("Signup"),
+                child: const Text("Signup"),
                 onPressed: () {
                   Navigator.push(
                     context,

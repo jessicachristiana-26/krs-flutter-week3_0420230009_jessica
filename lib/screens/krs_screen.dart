@@ -1,46 +1,69 @@
 import 'package:flutter/material.dart';
+import 'add_course_screen.dart';
+import 'course.dart';
 import 'krs_detail_screen.dart';
 
-class KrsScreen extends StatefulWidget {
+class KRSScreen extends StatefulWidget {
   final String firstName;
   final String lastName;
 
-  KrsScreen(this.firstName, this.lastName);
+  KRSScreen(this.firstName, this.lastName);
 
   @override
-  _KrsScreenState createState() => _KrsScreenState();
+  _KRSScreenState createState() => _KRSScreenState();
 }
 
-class _KrsScreenState extends State<KrsScreen> {
-  int credits = 0;
+class _KRSScreenState extends State<KRSScreen> {
+  List<Course> courses = [];
+  int totalCredits = 0;
+
+  Future<void> addCourse() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const AddCourseScreen()),
+    );
+
+    if (result != null && result is Course) {
+      setState(() {
+        courses.add(result);
+        totalCredits += result.credits;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("KRS")),
-      body: Center(
+      appBar: AppBar(title: const Text("KRS")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("${widget.firstName} ${widget.lastName}"),
-            Text("Credits: $credits"),
+            Text("${widget.firstName} ${widget.lastName}",
+                style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 10),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: courses.length,
+                itemBuilder: (_, i) => ListTile(
+                  title: Text(courses[i].name),
+                  subtitle:
+                      Text("${courses[i].credits} SKS | ${courses[i].semester}"),
+                ),
+              ),
+            ),
+
+            Text("Total Credits: $totalCredits"),
+            const SizedBox(height: 10),
 
             ElevatedButton(
-              onPressed: () => setState(() => credits += 3),
-              child: Text("Add 3 Credits"),
+              onPressed: addCourse,
+              child: const Text("Add Course"),
             ),
 
             ElevatedButton(
-              onPressed: () {
-                if (credits >= 3) {
-                  setState(() => credits -= 3);
-                }
-              },
-              child: Text("Remove 3 Credits"),
-            ),
-
-            ElevatedButton(
-              child: Text("Summary"),
+              child: const Text("Summary"),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -48,7 +71,7 @@ class _KrsScreenState extends State<KrsScreen> {
                     builder: (_) => KrsDetailScreen(
                       widget.firstName,
                       widget.lastName,
-                      credits,
+                      totalCredits,
                     ),
                   ),
                 );
